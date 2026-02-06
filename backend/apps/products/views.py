@@ -17,3 +17,11 @@ class ProductListCreate(generics.ListCreateAPIView):
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    
+    
+# Admin only permissions    
+# from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
+
+# class ProductListCreate(generics.ListCreateAPIView):
+#     permission_classes = [IsAuthenticatedOrReadOnly]  # Anyone reads, auth to create
+    # Or for admin only: [IsAdminUser]    

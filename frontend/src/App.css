@@ -24,13 +24,11 @@ body {
 
 .main-content {
   flex: 1;
-  padding: 2rem;
 }
 
 /* Pages */
 .home-page,
 .menu-page,
-.products-page,
 .booking-page,
 .location-page
 .cart-page,

@@ -1,16 +1,17 @@
-/**
- * ProductCard.jsx
- * 
- * Reusable product card component
- * Displays product image, name, price, and add to cart button
- * Used in HomePage and ProductsPage
- */
+import elTemplo from '../assets/img/el-templo.png'
 
 export default function ProductCard({ product }) {
   return (
     <div className="product-card">
-      <h3>Product Card</h3>
-      <p>Product details will go here</p>
+      <div className="card-grid">
+        <figure className='card-container'>
+            <img src={elTemplo} width={170} alt="The templo coffee bag" />
+            <figcaption><strong>El Templo</strong></figcaption>
+            <p>Brown Sugar, Cherry, Cocoa</p>
+            <p><strong>$17.99</strong></p>
+            <button>Shop Now</button>
+        </figure>
+      </div>
     </div>
   );
 }

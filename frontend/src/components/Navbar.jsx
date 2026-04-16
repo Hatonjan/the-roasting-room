@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom' //from react-router-dom for client-side navigation
+import { Link } from 'react-router-dom' // from react-router-dom for client-side navigation
 import heroBanner from '../assets/svg/logo.svg'
 import shoppingBag from '../assets/svg/shopping-bag.svg'
-import '../styles/components.css'
+import { navLinks } from '../data/navigation'
 
 export default function Navbar() {
   return (
@@ -13,43 +13,30 @@ export default function Navbar() {
         </Link>
 
         {/* Navigation */}
-      <nav className="navbar-container">
-        {/* Navigation Links */}
-        <ul className="navbar-links">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/menu">Menu</Link>
-          </li>
-          <li>
-            <Link to="/products">Our Beans</Link>
-          </li>
-          <li>
-            <Link to="/booking">Testing Experience</Link>
-          </li>
-          <li>
-            <Link to="/location">Location & Hours</Link>
-          </li>
-          <li>
-            <Link to="/cart">Cart</Link>
-          </li>
-        </ul>
+        <nav className="navbar-container">
+            {/* Navigation Links */}
+            <ul className="navbar-links">
+            {navLinks.map((link) => (
+                <li key={link.path}>
+                    <Link to={link.path}>{link.id}</Link>
+                </li>
+            ))}      
+            </ul>
 
-        {/* User Actions */}
-        <div className="navbar-actions">
-          <Link to="/profile" className="nav-link">
-            Profile
-          </Link>
-        </div>
+            {/* User Actions */}
+            <div className="navbar-actions">
+            <Link to="/profile" className="nav-link">
+                Profile
+            </Link>
+            </div>
 
-        <div className="navbar-actions">
-          <Link to="/CartPage">
-            <img src={shoppingBag} width={30} alt="Shopping bag icon" />
-          </Link>
-        </div>
+            <div className="navbar-actions">
+            <Link to="/cart">
+                <img src={shoppingBag} width={30} alt="Shopping bag icon" />
+            </Link>
+            </div>
 
-      </nav>
+        </nav>
     </header>
   )
 }

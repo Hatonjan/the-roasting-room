@@ -1,0 +1,80 @@
+[
+  {
+    "sku": "TRR-COL-001",
+    "category": "Coffee Beans",
+    "name": "El Templo",
+    "description": "A beautifully balanced and sweet coffee, perfect for your daily brew. It’s our go-to cup for a smooth, reliable start to the day with deep notes of cocoa and a cherry finish.",
+    "price": "17.99",
+    "stock_quantity": 50,
+    "image_url": "/media/products/el-templo.png",
+    "roast_level": "Medium",
+    "origin": "Colombia",
+    "weight_grams": 340,
+    "is_active": true
+  },
+  {
+    "sku": "TRR-ETH-002",
+    "category": "Coffee Beans",
+    "name": "Ethiopian Yirgacheffe",
+    "description": "A bright and vibrant coffee for the adventurous. This washed-process bean has a clean, tea-like body and a wonderfully complex, blueberry and floral finish.",
+    "price": "17.99",
+    "stock_quantity": 35,
+    "image_url": "/media/products/ethiopian-yirgacheffe.png",
+    "roast_level": "Light",
+    "origin": "Ethiopia",
+    "weight_grams": 340,
+    "is_active": true
+  },
+  {
+    "sku": "TRR-SUM-003",
+    "category": "Coffee Beans",
+    "name": "Gayo Mountain",
+    "description": "For those who love a rich and earthy cup. This bean has a full, syrupy body featuring notes of dark chocolate and cedar that stands up perfectly to milk.",
+    "price": "17.99",
+    "stock_quantity": 40,
+    "image_url": "/media/products/gayo-mountain.png",
+    "roast_level": "Dark",
+    "origin": "Sumatra, Indonesia",
+    "weight_grams": 340,
+    "is_active": true
+  },
+  {
+    "sku": "TRR-KEN-004",
+    "category": "Coffee Beans",
+    "name": "Kenya Nyeri",
+    "description": "A sophisticated cup characterized by its sharp acidity and juicy mouthfeel. Expect intense blackcurrant sweetness tempered by a crisp grapefruit finish.",
+    "price": "18.99",
+    "stock_quantity": 25,
+    "image_url": "/media/products/el-templo.png",
+    "roast_level": "Light-Medium",
+    "origin": "Kenya",
+    "weight_grams": 340,
+    "is_active": true
+  },
+  {
+    "sku": "TRR-COL-005",
+    "category": "Coffee Beans",
+    "name": "Colombia Huila",
+    "description": "Classic and comforting. This Huila selection offers a heavy caramel sweetness and the crispness of red apple, rounded out by a smooth milk chocolate body.",
+    "price": "17.49",
+    "stock_quantity": 60,
+    "image_url": "/media/products/ethiopian-yirgacheffe.png",
+    "roast_level": "Medium",
+    "origin": "Colombia",
+    "weight_grams": 340,
+    "is_active": true
+  },
+  {
+    "sku": "TRR-ETH-006",
+    "category": "Coffee Beans",
+    "name": "Natural Sidamo",
+    "description": "A fruit-forward powerhouse. As a naturally processed coffee, it retains a heavy strawberry sweetness and a rich cacao undertone that is truly unique.",
+    "price": "18.49",
+    "stock_quantity": 30,
+    "image_url": "/media/products/gayo-mountain.png",
+    "roast_level": "Light",
+    "origin": "Ethiopia",
+    "weight_grams": 340,
+    "is_active": true
+  }
+]

@@ -1,0 +1,140 @@
+/* Navbar Styles */
+.header {
+    background-color: var(--navbar-color);
+    color: var(--secondary-color);
+    display: flex;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Brand/Logo */
+.navbar-brand {
+    font-family: 'Archivo Black';
+    font-size: 1.125rem;
+    color: var(--secondary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s;
+}
+
+.navbar-brand:hover {
+    color: var(--hover-color);
+}
+
+/* Navigation */
+.navbar-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Navigation Links */
+.navbar-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    flex: 1;
+}
+
+.navbar-links li {
+    margin: 0;
+}
+
+.navbar-links a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.125rem;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.navbar-links a:hover {
+    color: var(--hover-color);
+}
+
+/* Hover animation */
+.navbar-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--hover-color);
+    transition: width 0.3s;
+}
+
+.navbar-links a:hover::after {
+    width: 100%;
+}
+
+/* User Actions (Profile, Logout) */
+.navbar-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--highlight-color);
+    text-decoration: none;
+    font-size: 1.25rem;
+    padding: 0.5rem 2rem;
+    margin-left: 5rem;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: var(--background);
+    color: var(--secondary-color);
+    box-shadow: 0 0 3px var(--secondary-color);
+}
+/* End of navbar */
+
+/* Footer */
+.footer {
+  background-color: var(--navbar-color);
+  color: var(--secondary-color);
+  padding: 2rem;
+  text-align: center;
+  margin-top: auto;
+}
+/* End of footer */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navbar-brand {
+    order: 1;
+  }
+
+  .navbar-actions {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+  }
+}

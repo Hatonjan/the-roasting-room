@@ -1,0 +1,55 @@
+/* Font Imports */
+@font-face {
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo/Archivo-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo/Archivo-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Archivo Black';
+  src: url('./assets/fonts/Archivo_Black/ArchivoBlack-Regular.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Righteous';
+  src: url('./assets/fonts/Righteous/Righteous-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* CSS Variables */
+:root {
+  /* Roasting room variables */
+  --navbar-color: #101415;
+  --background: #582B04;
+  --secondary-color: #FDFADD;
+  --highlight-color: #F38F0F;
+  --card-color: #F3EACC;
+  --hover-color: #d4a574;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 4rem 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+}
+
+

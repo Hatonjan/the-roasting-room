@@ -130,3 +130,7 @@ CORS_ALLOWED_ORIGINS = [
 
 # Allow cookies/auth headers
 CORS_ALLOW_CREDENTIALS = True
+
+# Products url
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

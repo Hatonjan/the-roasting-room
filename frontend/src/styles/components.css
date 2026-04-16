@@ -107,6 +107,47 @@
   padding: 2rem;
   text-align: center;
   margin-top: auto;
+
+}
+
+.footer-navigation {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-navigation li {
+    list-style-type: none;
+    min-width: 5.375rem;
+}
+
+.footer-navigation a {
+    color: var(--secondary-color);
+    letter-spacing: 1px;
+}
+
+.footer-line {
+    background-color: var(--secondary-color);
+    margin: 3rem auto;
+    height: 1px;
+    justify-content: center;
+    width: 80vw;
+}
+
+.social-media ul {
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-media li {
+    list-style-type: none;
+}
+
+.copyright {
+    margin-top: 3rem;
 }
 /* End of footer */
 

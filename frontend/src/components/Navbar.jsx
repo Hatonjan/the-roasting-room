@@ -1,16 +1,6 @@
-/**
- * Navbar.jsx
- *
- * Navigation bar component shown on every page
- * Contains links to pages, cart icon, user profile, logout
- * 
- * Uses Link from react-router-dom for client-side navigation
- * (prevents full page reload, better UX)
- */
-
-import { Link } from 'react-router-dom'
-import heroBanner from '../assets/img/logo.svg'
-import shoppingBag from '../assets/img/shopping-bag.svg'
+import { Link } from 'react-router-dom' //from react-router-dom for client-side navigation
+import heroBanner from '../assets/svg/logo.svg'
+import shoppingBag from '../assets/svg/shopping-bag.svg'
 import '../styles/components.css'
 
 export default function Navbar() {

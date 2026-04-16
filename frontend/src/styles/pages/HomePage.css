@@ -8,23 +8,181 @@
 
 /* Hero Section */
 .hero {
-  padding: 6rem 2rem;
-  text-align: center;
+    text-align: center;
+    height: 90vh;
+    position: relative;
+    text-align: center;
+    z-index: 0;
 }
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-message {
+    position: relative;
+    color: var(--secondary-color);
+    text-shadow: 4px 4px 8px black;
+    z-index: 2;
+}
+
+.hero-message h1 {
+    font-family: 'Archivo Black';
+    font-size: 8rem;
+    margin-top: 4rem;
+}
+
+.hero-message h2{
+    font-family: 'Righteous';
+    font-size: 4rem;
+}
+
+.hero-message button {
+    background-color: var(--background);
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 1.75rem;
+    padding: .75rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 10px var(--hover-color);
+    margin-top: 6rem;
+}
+
+.hero-message button:hover {
+    box-shadow: 1px 1px 5px var(--hover-color);
+    padding: .625rem 1.375rem;
+}
+/* End of hero */
+
+/* About section */
+.about {
+    margin: 4rem 10vw;
+    display: flex;
+}
+
+.about-message {
+    color: var(--secondary-color);
+    padding-left: 5rem;
+}
+
+.about-message h2 {
+    font-size: 2.5rem;
+    padding-bottom: 2rem;
+}
+
+.about-message p {
+    color: var(--secondary-text-color);
+    font-size: 1.125rem;
+    padding-bottom: 2rem;
+}
+
+.about-message h3 {
+    font-size: 1.25rem;
+    padding-bottom: .5rem;
+}
+
+.about-message li {
+    color: var(--secondary-text-color);
+    font-size: 1.125rem;
+    padding-bottom: .5rem;
+}
+
+
+/* End of about */
 
 /* Featured Products */
 .featured-products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 2rem 0;
+    background-color: var(--secondary-color);
+    padding: 5rem 10vw;
+}
+
+.featured-products h2 {
+    font-family: 'Archivo Black';
+    color: var(--highlight-color);
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.featured-grid li {
+    list-style-type: none;
+    margin-top: 4rem;
+}
+
+.featured-grid h3 {
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.featured-grid figcaption {
+    color: var(--highlight-color);
+    font-size: 1.125rem;
+    margin-bottom: .5rem;
+}
+
+.featured-grid p {
+    font-size: 1.125rem;
+    max-width: 350px;
 }
 
 /* Call to Action */
 .cta-section {
-  padding: 3rem 2rem;
-  text-align: center;
+    display: flex;
+  padding: 5rem 15vw;
+  justify-content: space-between;
 }
+
+.cta-message {
+    color: var(--secondary-color);
+}
+
+.cta-message h2 {
+    font-family: 'Archivo Black';
+    font-size: 2rem;
+}
+.cta-message h3 {
+    font-size: 2rem;
+}
+
+.cta-buttons {
+    margin-top: 2rem;
+}
+.cta-buttons a {
+    margin: 2rem;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.store-tasting {
+    background-color: var(--secondary-color);
+    color: black;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    
+}
+
+.contact-us {
+    color: var(--secondary-color);
+    padding: .875rem 2.5rem;
+    border: 3px solid var(--secondary-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+/* End of cta */
+
 
 @media (max-width: 768px) {
   .hero {

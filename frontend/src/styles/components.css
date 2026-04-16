@@ -2,6 +2,7 @@
 .header {
     background-color: var(--navbar-color);
     color: var(--secondary-color);
+    font-family: 'Righteous';
     display: flex;
     padding: 1rem 2rem;
     position: sticky;
@@ -104,6 +105,7 @@
 .footer {
   background-color: var(--navbar-color);
   color: var(--secondary-color);
+  font-family: 'Righteous';
   padding: 2rem;
   text-align: center;
   margin-top: auto;
@@ -161,7 +163,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
-    /* padding: 5rem 0; */
     gap: 5rem;
 }
 

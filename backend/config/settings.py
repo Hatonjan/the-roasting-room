@@ -125,8 +125,10 @@ SIMPLE_JWT = {
 
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",   # React dev server
-    "http://127.0.0.1:3000",   # React dev server
+    "http://localhost:5173",   # Vite dev server
+    "http://127.0.0.1:5173",   # Vite dev server
+    "http://localhost:3000",   # React dev server (if using later)
+    "http://127.0.0.1:3000",   # React dev server (if using later)
 ]
 
 # Allow cookies/auth headers

@@ -58,7 +58,49 @@
 
 }
 
-.booking-form {
-
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 8rem;
+}
+
+.booking-form input, select {
+    font-family: 'Archivo';
+    background-color: transparent;
+    border: 3px solid;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    padding: .5rem;
+    outline: none;
+}
+
+.booking-form button {
+    background-color: var(--background);
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+    padding: .5rem 2rem;
+    border: none;
+    border-radius: 5px;
+    width: fit-content;
+    margin-bottom: 5rem;
+    box-shadow: 2px 2px 4px black;
+}
+
+.booking-form button:hover {
+    box-shadow: 2px 2px 4px var(--shadow-color);
+}
+
+/* Error message */
+.form-section p {
+    font-size: 1.25rem;
+    margin-left: 20vw;
+    color: var(--highlight-color);
+}
+/* end of form */
 

@@ -8,7 +8,7 @@ import { featuredProducts } from '../data/homePageData'
 
 export default function HomePage() {
   return (
-    <div className="home-page">
+    <main className="home-page">
         <section className="hero">
             <video className='hero-video' autoPlay muted playsInline loop>
                 <source src={heroVideo} type="video/mp4"/>
@@ -82,6 +82,6 @@ export default function HomePage() {
                 <Link to='/location' className='contact-us'>Contact us</Link>
             </div>
         </section>
-    </div>
+    </main>
   );
 }

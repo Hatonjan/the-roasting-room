@@ -1,67 +1,91 @@
 /* MenuPage Styles */
 
-.menu-page {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.menu-page h1 {
+    font-family: 'Archivo Black';
+    color: var(--secondary-color);
+    text-align: center;
+    font-size: 6rem;
+    padding-top: 4rem;
 }
 
 /* Menu Header */
-.menu-header {
-  text-align: center;
-  padding: 2rem 0;
+.menu-article {
+    background-color: var(--secondary-color);
+    margin: 4rem 10vw;
+    padding: 5rem 8rem;
+    border-radius: 10px;
 }
 
-/* Menu Categories */
-.menu-categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+.menu-article h2 {
+    font-family: 'Archivo Black';
+    text-align: center;
+    font-size: 2rem;
+    color: var(--highlight-color);
+    margin-bottom: 3rem;
 }
 
-.menu-category {
-  padding: 2rem;
-  border-radius: 8px;
-  background-color: var(--card-color);
+.drinks-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 0  5rem;
+    margin-bottom: 4rem;
 }
 
-.menu-category h3 {
-  margin-bottom: 1.5rem;
+.hot-drinks h3 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
 }
 
-.menu-items {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.hot-drinks h4 {
+    font-size: 1.375rem;
+    margin-bottom: 2rem;
 }
 
-.menu-item {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+.hot-drinks li {
+    font-size: 1.125rem;
+    padding-bottom: .5rem;
 }
 
-.menu-item:last-child {
-  border-bottom: none;
+.subsection {
+    margin-top: 2rem;
 }
 
-.menu-item-name {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
+.cold-drinks h3 {
+     font-size: 1.75rem;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+
 }
 
-.menu-item-description {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 0.5rem;
+.cold-drinks h4 {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
 }
 
-.menu-item-price {
-  font-weight: 700;
-  color: var(--highlight-color);
+.cold-drinks li {
+    font-size: 1.125rem;
+    padding-bottom: .5rem;
 }
 
-@media (max-width: 768px) {
-  .menu-categories {
-    grid-template-columns: 1fr;
-  }
+/* Foot section */
+.food-section {
+    padding: 4rem 5rem;
+    border-top: 2px solid black;
 }
+
+.food-section h2 {
+    margin: 0;
+}
+
+.food-subtitle {
+    text-align: center;
+    font-size: 1.125rem;
+    margin-bottom: 4rem;
+}
+
+.food-section li {
+    font-size: 1.125rem;
+    padding-bottom: .5rem;
+}
+/* End of foot section */

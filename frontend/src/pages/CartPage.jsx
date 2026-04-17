@@ -7,9 +7,9 @@
 
 export default function CartPage() {
   return (
-    <div className="cart-page">
+    <main className="cart-page">
       <h1>Shopping Cart</h1>
       <p>Cart items will go here</p>
-    </div>
+    </main>
   );
 }

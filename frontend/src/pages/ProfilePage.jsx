@@ -7,9 +7,9 @@
 
 export default function ProfilePage() {
   return (
-    <div className="profile-page">
+    <main className="profile-page">
       <h1>Profile</h1>
       <p>User profile information will go here</p>
-    </div>
+    </main>
   );
 }

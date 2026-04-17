@@ -1,6 +1,4 @@
-/**
- * AuthContext.jsx
- * 
+/*
  * Global authentication context
  * Stores: user data, JWT token, login/logout functions
  * Used across entire app for auth state
@@ -9,23 +7,71 @@
  *   const { user, token, login, logout } = useContext(AuthContext);
  */
 
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('accessToken'));
+  const [loading, setLoading] = useState(true);
 
-  const value = {
-    user,
-    setUser,
-    token,
-    setToken,
+  // On app load, fetch user data if token exists
+  useEffect(() => {
+    if(token) {
+      fetchUserProfile();
+    } else {
+      setLoading(false)
+    }
+  }, [token]);
+  
+  const fetchUserProfile = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/users/profile/', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-type': 'application/json',
+        }
+      })
+
+      if(response.ok) {
+        const userData = await response.json()
+        setUser(userData);
+      } else {
+        localStorage.removeItem('accessToken'); //Token invalid clear it
+        setToken(null);
+      }
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    } finally {
+      setLoading(false)
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    setUser(null);
+    setToken(null);
+  };
+
+  const updateUser = (updateData) => {
+    setUser({...user, ...updateData})
   };
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider 
+      value={{
+        user,
+        setUser,
+        token,
+        setToken,
+        loading,
+        logout,
+        updateUser,
+        fetchUserProfile
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

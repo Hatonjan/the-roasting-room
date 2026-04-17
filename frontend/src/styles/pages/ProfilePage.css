@@ -1,9 +1,67 @@
 /* ProfilePage Styles */
 
 .profile-page {
+  background-color: var(--background);
+  min-height: calc(100vh - 200px);
+  padding: 4rem 2rem;
+}
+
+.profile-page h1 {
+  font-family: 'Archivo Black';
+  color: var(--primary-color);
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  display: none;
+}
+
+.profile-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
+}
+
+/* Empty Profile - Login Prompt */
+.empty-profile {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--card-color);
+  border-radius: 12px;
+  box-shadow: 2px 2px 6px var(--shadow-color);
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-profile h2 {
+  font-family: 'Archivo Black';
+  color: var(--navbar-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  line-height: 1.3;
+}
+
+.login-btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: 'Archivo';
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 2px solid var(--highlight-color);
+}
+
+.login-btn:hover {
+  background-color: var(--background);
+  color: var(--highlight-color);
+  border-color: var(--highlight-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 /* Profile Header */
@@ -11,8 +69,11 @@
   display: flex;
   gap: 2rem;
   margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 2px solid var(--highlight-color);
+  padding: 2rem;
+  background-color: var(--card-color);
+  border-radius: 12px;
+  box-shadow: 2px 2px 6px var(--shadow-color);
+  align-items: center;
 }
 
 .profile-avatar {
@@ -23,9 +84,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 3rem;
+  color: var(--primary-color);
+  font-size: 3.5rem;
   flex-shrink: 0;
+  font-weight: 700;
+  font-family: 'Archivo Black';
 }
 
 .profile-info {
@@ -35,47 +98,566 @@
 }
 
 .profile-info h1 {
+  font-family: 'Archivo Black';
+  color: var(--navbar-color);
+  font-size: 2rem;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
-.profile-info p {
+.profile-email {
+  color: var(--navbar-color);
+  font-size: 1.125rem;
   margin: 0.25rem 0;
-  color: #666;
 }
 
-/* Profile Sections */
+.profile-join {
+  color: var(--secondary-text-color);
+  font-size: 0.95rem;
+  margin: 0.25rem 0;
+}
+
+/* Profile Tabs */
+.profile-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--hover-color);
+  background-color: transparent;
+}
+
+.tab-button {
+  padding: 1rem 1.5rem;
+  background-color: transparent;
+  color: var(--secondary-text-color);
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Archivo';
+}
+
+.tab-button:hover {
+  color: var(--highlight-color);
+}
+
+.tab-button.active {
+  color: var(--highlight-color);
+  border-bottom-color: var(--highlight-color);
+}
+
+/* Tab Content */
+.tab-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Profile Section */
 .profile-section {
-  margin-bottom: 3rem;
+  background-color: var(--card-color);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 2px 2px 6px var(--shadow-color);
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .profile-section h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.3rem;
+  font-family: 'Archivo Black';
+  color: var(--navbar-color);
+  font-size: 1.5rem;
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--highlight-color);
+}
+
+.section-header h2 {
+  border: none;
+  padding: 0;
+}
+
+/* Edit Button */
+.edit-btn {
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.edit-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+/* Info Display */
+.info-display {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+}
+
+.info-label {
+  color: var(--navbar-color);
+  font-weight: 600;
+}
+
+.info-value {
   color: var(--navbar-color);
 }
 
-/* Account Details Form */
-.account-details {
-  background-color: var(--card-color);
-  padding: 2rem;
-  border-radius: 8px;
+/* Edit Form */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.form-row.full {
-  grid-template-columns: 1fr;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.form-group label {
+  color: var(--navbar-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 2px solid var(--hover-color);
+  border-radius: 8px;
+  font-family: 'Archivo';
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: var(--navbar-color);
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 0 3px rgba(243, 143, 15, 0.15);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.save-btn {
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+}
+
+.save-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background-color: var(--primary-color);
+  color: var(--navbar-color);
+  border: 2px solid var(--navbar-color);
+}
+
+.cancel-btn:hover {
+  background-color: var(--navbar-color);
+  color: var(--primary-color);
+}
+
+/* Account Security */
+.security-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.security-info h3 {
+  color: var(--navbar-color);
+  margin: 0 0 0.5rem 0;
+  font-family: 'Archivo Black';
+}
+
+.security-info p {
+  color: var(--secondary-text-color);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.change-password-btn {
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.change-password-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+/* Logout Section */
+.logout-section {
+  border-left: 4px solid #d32f2f;
+  background-color: #f3f3f3;
+}
+
+.logout-description {
+  color: var(--navbar-color);
+  margin: 1rem 0;
+}
+
+.logout-btn {
+  background-color: #d32f2f;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #b71c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+}
+
+/* Order History */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.order-card {
+  background-color: var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--highlight-color);
+  transition: all 0.3s;
+}
+
+.order-card:hover {
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transform: translateX(4px);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.order-id-date h3 {
+  color: var(--navbar-color);
+  margin: 0;
+  font-family: 'Archivo Black';
+  font-size: 1.125rem;
+}
+
+.order-date {
+  color: var(--secondary-text-color);
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.order-status-total {
+  text-align: right;
+}
+
+.order-status {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.order-status.delivered {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.order-status.pending {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.order-status.cancelled {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.order-total {
+  color: var(--navbar-color);
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin: 0.5rem 0 0 0;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hover-color);
+}
+
+.order-items {
+  color: var(--secondary-text-color);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.view-details-btn {
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.view-details-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+.no-orders {
+  text-align: center;
+  padding: 2rem;
+  color: var(--secondary-text-color);
+}
+
+/* Addresses */
+.add-address-btn {
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-address-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-2px);
+}
+
+.addresses-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.address-card {
+  background-color: var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid var(--hover-color);
+  transition: all 0.3s;
+}
+
+.address-card:hover {
+  border-color: var(--highlight-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.address-header h3 {
+  color: var(--navbar-color);
+  margin: 0;
+  font-family: 'Archivo Black';
+  font-size: 1.125rem;
+}
+
+.default-badge {
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.address-text {
+  color: var(--navbar-color);
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.address-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hover-color);
+}
+
+.edit-address-btn,
+.delete-address-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.edit-address-btn {
+  background-color: var(--highlight-color);
+  color: var(--navbar-color);
+}
+
+.edit-address-btn:hover {
+  background-color: var(--hover-color);
+}
+
+.delete-address-btn {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #c62828;
+}
+
+.delete-address-btn:hover {
+  background-color: #c62828;
+  color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 2rem 1rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-tabs {
+    flex-direction: column;
+  }
+
+  .tab-button {
+    border-bottom: none;
+    border-left: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+
+  .tab-button.active {
+    border-bottom: none;
+    border-left-color: var(--highlight-color);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .addresses-list {
+    grid-template-columns: 1fr;
+  }
+
+  .order-header {
+    flex-direction: column;
+  }
+
+  .order-status-total {
+    text-align: left;
+    margin-top: 1rem;
+  }
+
+  .order-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .view-details-btn {
+    width: 100%;
+  }
 }
 
 .form-group label {

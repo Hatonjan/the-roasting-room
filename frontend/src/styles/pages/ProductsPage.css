@@ -1,29 +1,20 @@
 /* ProductsPage Styles */
 
-.products-page {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.products-page h1 {
+  font-family: 'Archivo Black';
+  color: var(--primary-color);
+  font-size: 3.5rem;
+  text-align: center;
+  margin: 4rem;
 }
 
-/* Filter Section */
-.products-filter {
-  padding: 2rem 0;
-  border-bottom: 1px solid #eee;
-}
-
-.filter-controls {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* Products Grid */
 .products-grid {
+  background-color: var(--primary-color);
+  padding: 5rem 10vw;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5rem;
+  justify-items: center;
 }
 
 /* Loading & Error States */
@@ -36,14 +27,4 @@
 
 .error {
   color: #d32f2f;
-}
-
-@media (max-width: 768px) {
-  .products-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .filter-controls {
-    flex-direction: column;
-  }
 }

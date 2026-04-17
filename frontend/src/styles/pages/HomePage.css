@@ -27,7 +27,7 @@
 
 .hero-message {
     position: relative;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     text-shadow: 4px 4px 8px black;
     z-index: 2;
 }
@@ -45,7 +45,7 @@
 
 .hero-message button {
     background-color: var(--background);
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-weight: bold;
     font-size: 1.75rem;
     padding: .75rem 1.5rem;
@@ -68,7 +68,7 @@
 }
 
 .about-message {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     padding-left: 5rem;
 }
 
@@ -99,7 +99,7 @@
 
 /* Featured Products */
 .featured-products {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     padding: 5rem 10vw;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .cta-message {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .cta-message h2 {
@@ -167,7 +167,7 @@
 }
 
 .store-tasting {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: black;
     padding: 1rem 2rem;
     border-radius: 5px;
@@ -175,9 +175,9 @@
 }
 
 .contact-us {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     padding: .875rem 2.5rem;
-    border: 3px solid var(--secondary-color);
+    border: 3px solid var(--primary-color);
     border-radius: 5px;
     box-sizing: border-box;
 }

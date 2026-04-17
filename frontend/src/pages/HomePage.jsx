@@ -71,7 +71,6 @@ export default function HomePage() {
         </section>
         
         <section className="cta-section">
-
             <div className='cta-message'>
                 <h2>Ready to get started?</h2>
                 <h3>Contact us</h3>

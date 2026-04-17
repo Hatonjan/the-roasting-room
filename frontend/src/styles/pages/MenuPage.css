@@ -2,7 +2,7 @@
 
 .menu-page h1 {
     font-family: 'Archivo Black';
-    color: var(--secondary-color);
+    color: var(--primary-color);
     text-align: center;
     font-size: 6rem;
     padding-top: 4rem;
@@ -10,7 +10,7 @@
 
 /* Menu Header */
 .menu-article {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     margin: 4rem 10vw;
     padding: 5rem 8rem;
     border-radius: 10px;

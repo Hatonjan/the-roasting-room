@@ -64,6 +64,7 @@ def seed_database():
                 defaults={
                     "category": coffee_category,
                     "name": product_data["name"],
+                    "flavors": product_data.get("flavors", ""),
                     "description": product_data["description"],
                     "price": product_data["price"],
                     "stock_quantity": product_data["stock_quantity"],

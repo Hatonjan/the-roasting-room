@@ -1,5 +1,5 @@
 .location-page {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .location-page h1 {
@@ -47,7 +47,7 @@
 
 /* Contact form */
 .contact-section {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: black;
     text-align: center;
     padding-top: 4rem;
@@ -89,7 +89,7 @@
 
 .contact-form button{
     background-color: var(--background);
-    color: var(--secondary-color);
+    color: var(--primary-color);
     border: none;
     border-radius: 5px;
     width: fit-content;

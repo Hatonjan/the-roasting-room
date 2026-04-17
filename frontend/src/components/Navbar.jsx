@@ -1,9 +1,18 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom' // from react-router-dom for client-side navigation
 import heroBanner from '../assets/svg/logo.svg'
 import shoppingBag from '../assets/svg/shopping-bag.svg'
 import { navLinks } from '../data/navigation'
+import { CartContext } from '../context/CartContext'
+import { AuthContext } from '../context/AuthContext'
 
 export default function Navbar() {
+  const { items } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+  
+  // Calculate total quantity across all items
+  const cartCount = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
   return (
     <header className="header">
         {/* Logo/Brand */}
@@ -25,14 +34,21 @@ export default function Navbar() {
 
             {/* User Actions */}
             <div className="navbar-actions">
-            <Link to="/profile" className="nav-link">
+            {user ? (
+              <Link to="/profile" className="nav-link">
                 Profile
-            </Link>
+              </Link>
+            ) : (
+              <Link to="/login" className="nav-link login-link">
+                Login
+              </Link>
+            )}
             </div>
 
             <div className="navbar-actions">
-            <Link to="/cart">
+            <Link to="/cart" className="cart-icon-container">
                 <img src={shoppingBag} width={30} alt="Shopping bag icon" />
+                {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </Link>
             </div>
 

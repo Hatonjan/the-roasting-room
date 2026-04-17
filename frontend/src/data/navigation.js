@@ -9,7 +9,6 @@ export const navLinks = [
   { id: 'Our Beans'         , path: '/products' },
   { id: 'Testing Experience', path: '/booking'  },
   { id: 'Location & Hours'  , path: '/location' },
-  { id: 'Cart'              , path: '/cart'     },
 ]
 
 /* Footer Navigation - Left Side (Home, Menu, Our Beans) */

@@ -32,12 +32,13 @@
   /* Roasting room variables */
   --navbar-color: #101415;
   --background: #582B04;
-  --secondary-color: #FDFADD;
+  --primary-color: #FDFADD;
   --secondary-text-color: #c9b8a7;
   --highlight-color: #F38F0F;
   --card-color: #F3EACC;
   --hover-color: #d4a574;
-  --shadow-color: #00000044
+  --shadow-color: #00000044;
+  --warning-color: #ff6b6b;
 }
 
 /* Utility Classes */

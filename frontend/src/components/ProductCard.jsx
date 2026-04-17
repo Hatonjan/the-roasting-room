@@ -1,17 +1,51 @@
-import elTemplo from '../assets/img/el-templo.png'
+
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import { API_BASE_URL } from '../config';
 
 export default function ProductCard({ product }) {
+  const { items, setItems, total, setTotal } = useContext(CartContext);
+
+  const handleAddToCart = () => {
+    // Check if product already in cart
+    const existingItem = items.find(item => item.id === product.id);
+    
+    let updatedItems;
+    if (existingItem) {
+      // If exists, increase quantity
+      updatedItems = items.map(item =>
+        item.id === product.id 
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    } else {
+      // If new, add with quantity 1 and ensure price is a number
+      const productWithNumericPrice = {
+        ...product,
+        price: parseFloat(product.price),
+        quantity: 1
+      };
+      updatedItems = [...items, productWithNumericPrice];
+    }
+    
+    setItems(updatedItems);
+    
+    // Recalculate total
+    const newTotal = updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    setTotal(newTotal);
+  };
+
   return (
-    <div className="product-card">
-      <div className="card-grid">
-        <figure className='card-container'>
-            <img src={elTemplo} width={170} alt="The templo coffee bag" />
-            <figcaption><strong>El Templo</strong></figcaption>
-            <p>Brown Sugar, Cherry, Cocoa</p>
-            <p><strong>$17.99</strong></p>
-            <button>Shop Now</button>
-        </figure>
-      </div>
-    </div>
+    <article className="product-card">
+          <figure >
+            <img src={`${API_BASE_URL}${product.image_url}`} width={170} alt={product.name} />
+            <figcaption><strong>{product.name}</strong></figcaption>
+          </figure>
+
+          <p className="flavors">{product.flavors}</p>
+          <p className="price">${product.price}</p>
+          <button className="add-to-cart" onClick={handleAddToCart}>Shop Now</button>
+    </article>
   );
 }
+

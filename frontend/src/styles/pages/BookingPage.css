@@ -46,11 +46,115 @@
     padding-bottom: 2px;
 }
 /* Booking Form */
-.form-section {
+.booking-form {
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    padding: 0 8rem;
+}
+
+.booking-form h2 {
+    font-family: 'Archivo Black';
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 5rem;
+
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.booking-form input, select {
+    font-family: 'Archivo';
+    background-color: transparent;
+    border: 3px solid;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    padding: .5rem;
+    outline: none;
+}
+
+.booking-form button {
+    background-color: var(--background);
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    padding: .5rem 2rem;
+    border: none;
+    border-radius: 5px;
+    width: fit-content;
+    margin-bottom: 5rem;
+    box-shadow: 2px 2px 4px black;
+}
+
+.booking-form button:hover {
+    box-shadow: 2px 2px 4px var(--shadow-color);
+}
+
+/* Error message */
+.booking-form p {
+    font-size: 1.25rem;
+    margin-left: 20vw;
+    color: var(--highlight-color);
+}
+/* end of form */
+
+/* Responsive design */
+/* BookingPage Styles */
+.booking-hero {
+    color: var(--primary-color);
+    margin: 5rem 10vw;
+}
+
+.booking-hero h1 {
+    font-family: 'Archivo Black';
+    text-align: center;
+    font-size: 4rem;
+}
+
+.booking-hero h2 {
+    font-family: 'Archivo Black';
+    text-align: center;
+    font-size: 2.25rem;
+    margin-bottom: 5rem;
+}
+
+.booking-message {
+    display: flex;
+}
+
+.booking-about  {
+    margin-left: 4rem;
+    color: var(--secondary-text-color);
+}
+
+.booking-about  p {
+    font-size: 1.125rem;
+}
+
+.key-details {
+    margin-top: 4rem;
+}
+
+.key-details h3 {
+    color: var(--primary-color);
+    padding-bottom: 1rem;
+}
+
+.key-details li{
+    font-size: 1.125rem;
+    margin-left: 1rem;
+    max-width: 35vw;
+    padding-bottom: 2px;
+}
+/* Booking Form */
+.booking-form {
     background-color: var(--primary-color);
 }
 
-.form-section h2 {
+.booking-form h2 {
     font-family: 'Archivo Black';
     text-align: center;
     font-size: 2.5rem;
@@ -89,18 +193,85 @@
     border-radius: 5px;
     width: fit-content;
     margin-bottom: 5rem;
-    box-shadow: 2px 2px 4px black;
+    box-shadow: 2px 2px 4px var(--navbar-color);
 }
 
 .booking-form button:hover {
+    transform: translateY(-2px);
     box-shadow: 2px 2px 4px var(--shadow-color);
 }
 
 /* Error message */
-.form-section p {
+.booking-form p {
     font-size: 1.25rem;
     margin-left: 20vw;
     color: var(--highlight-color);
 }
 /* end of form */
+@media(max-width: 768px) {
+    /* BookingPage Styles */
+    .booking-hero {
+        margin: 3rem 5vw;
+    }
 
+    .booking-hero h1 {
+        font-size: 2rem;
+        padding-top: 2rem;
+    }
+
+    .booking-hero h2 {
+        font-size: 1.25rem;
+        margin: 2rem 0 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .booking-message {
+        flex-direction: column;
+    }
+
+    .booking-message img {
+        width: 90vw;
+    }
+
+    .booking-about  {
+        margin: 2rem 0 0 5vw;
+        max-width: 90vw;
+    }
+
+    .booking-about  p {
+        font-size: 1.125rem;
+    }
+
+    .key-details {
+        margin-top: 3rem;
+    }
+
+    .key-details h3 {
+        font-size: 1.5rem;
+    }
+
+    .key-details li{
+        max-width: 90vw;
+        padding-bottom: 4px;
+    }
+    /* Booking Form */
+    .booking-form {
+        display: flex;
+        flex-direction: column;
+        padding: 0 5vw;
+    }
+
+    .booking-form h2 {
+        font-size: 1.75rem;
+        padding: 0 !important;
+
+    }
+
+    .form-grid {
+        display: flex;
+        flex-direction: column;
+    }
+    /* end of form */
+}
+/* end of responsive */

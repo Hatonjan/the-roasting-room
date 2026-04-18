@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom' // from react-router-dom for client-side navigation
 import heroBanner from '../assets/svg/logo.svg'
 import shoppingBag from '../assets/svg/shopping-bag.svg'
@@ -7,6 +7,7 @@ import { CartContext } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
 
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items } = useContext(CartContext);
   const { user } = useContext(AuthContext);
   
@@ -21,13 +22,24 @@ export default function Navbar() {
           Roasting Room
         </Link>
 
+        {/* Hamburger Menu Button */}
+        <button 
+          className="hamburger-menu"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
+
         {/* Navigation */}
-        <nav className="navbar-container">
+        <nav className={`navbar-container ${isMenuOpen ? 'active' : ''}`}>
             {/* Navigation Links */}
             <ul className="navbar-links">
             {navLinks.map((link) => (
                 <li key={link.path}>
-                    <Link to={link.path}>{link.id}</Link>
+                    <Link to={link.path} onClick={() => setIsMenuOpen(false)}>{link.id}</Link>
                 </li>
             ))}      
             </ul>
@@ -35,18 +47,18 @@ export default function Navbar() {
             {/* User Actions */}
             <div className="navbar-actions">
             {user ? (
-              <Link to="/profile" className="nav-link">
+              <Link to="/profile" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                 Profile
               </Link>
             ) : (
-              <Link to="/login" className="nav-link login-link">
+              <Link to="/login" className="nav-link login-link" onClick={() => setIsMenuOpen(false)}>
                 Login
               </Link>
             )}
             </div>
 
             <div className="navbar-actions">
-            <Link to="/cart" className="cart-icon-container">
+            <Link to="/cart" className="cart-icon-container" onClick={() => setIsMenuOpen(false)}>
                 <img src={shoppingBag} width={30} alt="Shopping bag icon" />
                 {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </Link>

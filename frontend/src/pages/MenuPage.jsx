@@ -65,7 +65,7 @@ export default function MenuPage() {
 
         <section className="food-section">
           <h2>{menuCategories.food.title}</h2>
-          <p className="food-subtitle">({menuCategories.food.subtitle})</p>
+          <p className="food-subtitle">{menuCategories.food.subtitle}</p>
           <ul>
             {menuCategories.food.items.map((item) => (
               <li key={item.id}>

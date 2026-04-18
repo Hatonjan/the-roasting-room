@@ -1,5 +1,4 @@
 /* MenuPage Styles */
-
 .menu-page h1 {
     font-family: 'Archivo Black';
     color: var(--primary-color);
@@ -89,3 +88,68 @@
     padding-bottom: .5rem;
 }
 /* End of foot section */
+
+
+/* Responsive design */
+@media(max-width: 768px) {
+    .menu-page h1 {
+        font-size: 4rem;
+    }
+
+    /* Menu Header */
+    .menu-article {
+        background-color: var(--primary-color);
+        margin: 3rem 5vw;
+        padding: 2rem 1rem;
+    }
+
+    .menu-article h2 {
+        margin-bottom: 2rem;
+    }
+
+    .drinks-section {
+        display: flex;
+        flex-direction: column;
+        padding: 0  1.5rem;
+    }
+
+    .hot-drinks li {
+        margin-left: .5rem;
+    }
+
+    .cold-drinks h3 {
+        margin: 3rem 0 2rem;
+    }
+
+    .cold-drinks li {
+        margin-left: .5rem;
+    }
+
+    .cold-drinks h4 {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Foot section */
+    .food-section {
+        padding: 3rem 5vw;
+        border-top: 2px solid var(navbar-color);
+    }
+
+    .food-section h2 {
+        font-size: 1.875rem;
+        margin: 0;
+    }
+
+    .food-subtitle {
+        font-size: .875rem;
+        margin-bottom: 3rem;
+    }
+
+    .food-section li {
+        font-size: 1.125rem;
+        margin-left: .5rem;
+    }
+    /* End of foot section */
+}
+/* End of responsive */

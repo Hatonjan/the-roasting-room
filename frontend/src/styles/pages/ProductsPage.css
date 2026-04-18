@@ -1,5 +1,4 @@
 /* ProductsPage Styles */
-
 .products-page h1 {
   font-family: 'Archivo Black';
   color: var(--primary-color);
@@ -26,5 +25,30 @@
 }
 
 .error {
-  color: #d32f2f;
+  color: var(--error-color);
+}
+
+@media(max-width: 768px) {
+  .products-page h1 {
+    font-size: 2.5rem;
+    margin: 3rem 0;
+  }
+
+  .products-grid {
+    background-color: var(--primary-color);
+    margin: 0;
+    padding: 3rem 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    justify-items: center;
+  }
+
+  /* Loading & Error States */
+  .loading,
+  .error {
+    text-align: center;
+    padding: 4rem 2rem;
+    font-size: 1.1rem;
+  }
 }

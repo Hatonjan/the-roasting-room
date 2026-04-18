@@ -28,7 +28,7 @@
 .hero-message {
     position: relative;
     color: var(--primary-color);
-    text-shadow: 4px 4px 8px black;
+    text-shadow: 4px 4px 8px var(--navbar-color);
     z-index: 2;
 }
 
@@ -63,7 +63,18 @@
 
 /* About section */
 .about {
-    margin: 4rem 10vw;
+    margin: 3rem 10vw;
+}
+
+.about h2 {
+    font-family: 'Archivo Black';
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 5rem;
+    font-size: 3rem;
+}
+
+.aboutContainer {
     display: flex;
 }
 
@@ -72,7 +83,7 @@
     padding-left: 5rem;
 }
 
-.about-message h2 {
+.about-message h3 {
     font-size: 2.5rem;
     padding-bottom: 2rem;
 }
@@ -83,7 +94,7 @@
     padding-bottom: 2rem;
 }
 
-.about-message h3 {
+.about-message h4 {
     font-size: 1.25rem;
     padding-bottom: .5rem;
 }
@@ -141,8 +152,8 @@
 /* Call to Action */
 .cta-section {
     display: flex;
-  padding: 5rem 15vw;
-  justify-content: space-between;
+    padding: 5rem 15vw;
+    justify-content: space-between;
 }
 
 .cta-message {
@@ -153,6 +164,7 @@
     font-family: 'Archivo Black';
     font-size: 2rem;
 }
+
 .cta-message h3 {
     font-size: 2rem;
 }
@@ -160,15 +172,17 @@
 .cta-buttons {
     margin-top: 2rem;
 }
+
 .cta-buttons a {
     margin: 2rem;
     text-decoration: none;
     font-size: 1.25rem;
+    font-weight: bold;
 }
 
 .store-tasting {
     background-color: var(--primary-color);
-    color: black;
+    color: var(--navbar-color);
     padding: 1rem 2rem;
     border-radius: 5px;
     
@@ -185,11 +199,121 @@
 
 
 @media (max-width: 768px) {
-  .hero {
-    padding: 3rem 1rem;
-  }
+    /* Hero Section */
+    .hero {
+        width: 100%;
+    }
 
-  .featured-products {
-    grid-template-columns: 1fr;
-  }
+    .hero-video {
+        top: 20px;
+        left: 0;
+        width: 100vw;
+        height: 90vh;
+    }
+
+    .hero-message h1 {
+        font-size: 2.5rem;
+        margin-top: 30vh;
+    }
+
+    .hero-message h2{
+        font-size: 1.75rem;
+    }
+
+    .hero-message button {
+        margin-top: 20vh;
+    }
+    /* End of hero */
+
+    /* About section */
+    .about {
+        margin: 2rem 0;
+    }
+
+    .about h2 {
+        margin-bottom: 4rem;
+        font-size: 2.5rem;
+    }
+
+    .aboutContainer {
+        flex-direction: column;
+    }
+
+    .aboutImg {
+        width: 92vw;
+        margin: 0 4vw 2rem;
+    }
+
+    .about-message {
+        padding: 0;
+        margin: 2rem 2rem 0;
+    }
+
+    .about-message h3 {
+        font-size: 2rem;
+    }
+
+    .about-message h4 {
+        font-size: 1.5rem;
+    }
+
+    .about-message li {
+        margin-left: 1rem;
+    }
+    /* End of about */
+
+    /* Featured Products */
+    .featured-products {
+        padding: 3rem 10vw;
+    }
+
+    .featured-products h2 {
+        font-size: 1.75rem;
+    }
+
+    .featured-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .featured-grid img {
+        width: 80vw;
+    }
+
+    .featured-grid p {
+        max-width: 80vw;
+    }
+
+    /* Call to Action */
+    .cta-section {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 5vw;
+        justify-content: none;
+    }
+
+    .cta-message h2 {
+        font-size: 1.75rem;
+        padding-bottom: .5rem;
+    }
+
+    .cta-message h3 {
+        font-size: 1.75rem;
+    }
+
+    .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2rem;
+        width: 80vw;
+    }
+
+    .store-tasting {
+        padding: 1rem 2rem;
+    }
+
+    .contact-us {
+        padding: .875rem 2.5rem;
+    }
+    /* End of cta */
 }

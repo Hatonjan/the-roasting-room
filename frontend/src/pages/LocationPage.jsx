@@ -21,7 +21,7 @@ export default function LocationPage() {
           width="600" 
           height="450" 
           style={{ border: 0 }}
-          allowFullScreen=""
+          allowFullScreen="" 
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title="The Roasting Room Location">
@@ -30,7 +30,7 @@ export default function LocationPage() {
         <div className="address-info">
           <p>123 Coffee Street<br/>San Diego, CA 92101</p>
           <p><strong>Phone:</strong> (619) 555-ROAST</p>
-          <p><strong>Email:</strong> hello@theroastingroom.com</p>
+          <p><strong>Email:</strong> hello@roastingroom.com</p>
         </div>
       </section>
 

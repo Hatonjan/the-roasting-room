@@ -10,7 +10,7 @@ export default function BookingPage() {
     phone_number: '',
     date: '',
     seats: 1
-  });
+  }); 
 
   // State form feedback
   const [loading, setLoading] = useState(false);
@@ -72,10 +72,10 @@ export default function BookingPage() {
             <div className='key-details'>
               <h3><strong>Key Details:</strong></h3>
               <ul>
-                <li>Duration: 90 Minutes</li>
-                <li>Class Size: 2-6 people</li>
-                <li>Includes: Guided tasting of 3-4 coffees, brewing demonstrations, and a 4oz bag of coffee to take home.</li>
-                <li>Price: $45 per person</li>
+                <li><strong>Duration:</strong> 90 Minutes</li>
+                <li><strong>Class Size:</strong> 2-6 people</li>
+                <li><strong>Includes:</strong> Guided tasting of 3-4 coffees, brewing demonstrations, and a 4oz bag of coffee to take home.</li>
+                <li><strong>Price:</strong> $45 per person</li>
               </ul>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function BookingPage() {
         </div>
       </section>
 
-      <section className='form-section'>
+      <section className='booking-form'>
         <h2>Book Your Tasting Experience</h2>
 
         {error && <p className='error'>{error}</p>}

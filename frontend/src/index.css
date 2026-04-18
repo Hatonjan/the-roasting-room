@@ -26,7 +26,7 @@
   font-weight: 400;
   font-style: normal;
 }
-
+ 
 /* CSS Variables */
 :root {
   /* Roasting room variables */
@@ -39,6 +39,7 @@
   --hover-color: #d4a574;
   --shadow-color: #00000044;
   --warning-color: #ff6b6b;
+  --error-color: #d32f2f;
 }
 
 /* Utility Classes */

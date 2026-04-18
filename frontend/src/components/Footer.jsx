@@ -17,7 +17,7 @@ export default function Footer() {
 
                 {/* Website logo */}
                 <li>
-                    <img src={footerLogo} width="40" alt="Roasting room logo"/>
+                    <img className='footer-logo' src={footerLogo} width="40" alt="Roasting room logo"/>
                 </li>
 
                 {/* Navigation to the right of the logo */}

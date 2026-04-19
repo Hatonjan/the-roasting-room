@@ -133,7 +133,7 @@
     /* Foot section */
     .food-section {
         padding: 3rem 5vw;
-        border-top: 2px solid var(navbar-color);
+        border-top: 2px solid var(--navbar-color);
     }
 
     .food-section h2 {

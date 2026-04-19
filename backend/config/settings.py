@@ -17,8 +17,12 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-fallback-key-change
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# Grabs the URL Render assigns automatically
+render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if render_host:
+    ALLOWED_HOSTS.append(render_host)
 
 # Application definition
 INSTALLED_APPS = [

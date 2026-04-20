@@ -1,23 +1,4 @@
-/**
- * api.js
- * 
- * Central API service layer
- * All HTTP requests to Django backend go through here
- * This keeps components clean and API logic centralized
- * 
- * Base URL: http://127.0.0.1:8000/api/
- * 
- * Usage:
- *   import { getProducts, login, addToCart } from './services/api';
- *   const products = await getProducts();
- */
-
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
-
-/**
- * Helper function to make API requests
- * Automatically includes auth token if available
- */
+// Helper function to make API requests
 async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
   const headers = {
     'Content-Type': 'application/json',
@@ -38,7 +19,7 @@ async function apiRequest(endpoint, method = 'GET', body = null, token = null) {
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`, options);
 
     if (!response.ok) {
       throw new Error(`API Error: ${response.status}`);

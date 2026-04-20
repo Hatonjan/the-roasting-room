@@ -1,12 +1,3 @@
-/*
- * Global authentication context
- * Stores: user data, JWT token, login/logout functions
- * Used across entire app for auth state
- * 
- * Usage:
- *   const { user, token, login, logout } = useContext(AuthContext);
- */
-
 import { createContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext();
@@ -22,12 +13,12 @@ export default function AuthContextProvider({ children }) {
       fetchUserProfile();
     } else {
       setLoading(false)
-    }
+    } 
   }, [token]);
   
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/users/profile/', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/profile/`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-type': 'application/json',

@@ -18,10 +18,12 @@
 
 /* Loading & Error States */
 .loading,
-.error {
+.error,
+.no-available {
   text-align: center;
   padding: 4rem 2rem;
-  font-size: 1.1rem;
+  color: var(--warning-color);
+  font-size: 1.5rem;
 }
 
 .error {

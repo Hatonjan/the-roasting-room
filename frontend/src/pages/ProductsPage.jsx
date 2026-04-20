@@ -44,7 +44,7 @@ export default function ProductsPage() {
       )}
 
       {!loading && products.length === 0 && (
-        <p>No products available</p>
+        <p className='no-available'>No products available</p>
       )}
 
       <section className="cta-section">

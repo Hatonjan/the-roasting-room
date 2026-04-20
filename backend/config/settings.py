@@ -146,7 +146,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",   # Vite dev server
     "http://localhost:3000",   # React dev server (if using later) 
     "http://127.0.0.1:3000",   # React dev server (if using later)
-    "https://roasting-room.netlify.app/", # Netlify
+    "https://roasting-room.netlify.app", # Netlify
 ]
 
 # Allow all for now during testing, or specify your Netlify URL once you have it

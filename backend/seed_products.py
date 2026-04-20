@@ -1,7 +1,3 @@
-"""
-This script loads products from data/products.json and creates them in the database.
-Run with: pipenv run python seed_products.py
-"""
 import os
 import json
 import django
@@ -10,25 +6,28 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
-from apps.products.models import Product, Category
 
+from apps.products.models import Product, Category
+from django.conf import settings
 
 def load_products_from_json():
-    """
-    Load products from the JSON file.    
-    Returns: List of product dictionaries
-    """
-    json_path = os.path.join(os.path.dirname(__file__), 'data', 'products.json')
+    
+    #Load products from the JSON file.    
+    # json_path = os.path.join(os.path.dirname(__file__), 'data', 'products.json')
+
+    json_path = os.path.join(settings.BASE_DIR, 'data', 'products.json')
+    
+    print(f"DEBUG: Looking for JSON at: {json_path}")
     
     try:
         with open(json_path, 'r') as f:
             return json.load(f)
     except FileNotFoundError:
-        print(f"❌ Error: Could not find {json_path}")
+        print(f"Error: Could not find {json_path}")
         print("Make sure data/products.json exists in the backend folder.")
         return []
     except json.JSONDecodeError:
-        print(f"❌ Error: {json_path} is not valid JSON")
+        print(f"Error: {json_path} is not valid JSON")
         return []
 
 
@@ -59,7 +58,7 @@ def seed_database():
     for product_data in products_data:
         try:
             # Get or create product using SKU as unique identifier
-            product, was_created = Product.objects.get_or_create(
+            product, created = Product.objects.update_or_create(
                 sku=product_data["sku"],
                 defaults={
                     "category": coffee_category,
@@ -76,12 +75,12 @@ def seed_database():
                 }
             )
             
-            if was_created:
-                print(f"Created: {product.name} (${product.price})")
+            if created:
+                print(f"Created new product: {product.name}")
                 created_count += 1
             else:
-                print(f"Already exists: {product.name}")
-                skipped_count += 1
+                print(f"Updated existing product: {product.name}")
+                updated_count += 1
                 
         except KeyError as e:
             print(f"Error: Missing required field {e} in product data")
@@ -100,6 +99,12 @@ def seed_database():
     print(f"{'='*50}\n")
 
 
-if __name__ == "__main__":
-    print("Starting database seed from JSON...\n")
-    seed_database()
+# if __name__ == "__main__":
+print("Starting database seed from JSON...\n")
+seed_database()
+
+'''
+Error: Could not find /home/hatonjan/.local/share/virtualenvs/backend-yYBY7KD2/lib/python3.12/site-packages/django/core/management/commands/data/products.json
+Make sure data/products.json exists in the backend folder.
+No products to seed. Aborting.
+'''

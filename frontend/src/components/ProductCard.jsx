@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
   return (
     <article className="product-card">
           <figure >
-            <img src={`${API_BASE_URL}${product.image_url}`} width={170} alt={product.name} />
+            <img src={product.image_url} width={170} alt={product.name} />
             <figcaption><strong>{product.name}</strong></figcaption>
           </figure>
 

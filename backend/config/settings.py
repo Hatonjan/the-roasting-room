@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware'
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware', 
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -144,9 +144,13 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",   # Vite dev server
     "http://127.0.0.1:5173",   # Vite dev server
-    "http://localhost:3000",   # React dev server (if using later)
+    "http://localhost:3000",   # React dev server (if using later) 
     "http://127.0.0.1:3000",   # React dev server (if using later)
+    "https://roasting-room.netlify.app/", # Netlify
 ]
+
+# Allow all for now during testing, or specify your Netlify URL once you have it
+CORS_ALLOW_ALL_ORIGINS = False
 
 # Allow cookies/auth headers
 CORS_ALLOW_CREDENTIALS = True

@@ -77,17 +77,17 @@ def seed_database():
             )
             
             if was_created:
-                print(f"✅ Created: {product.name} (${product.price})")
+                print(f"Created: {product.name} (${product.price})")
                 created_count += 1
             else:
-                print(f"📌 Already exists: {product.name}")
+                print(f"Already exists: {product.name}")
                 skipped_count += 1
                 
         except KeyError as e:
-            print(f"❌ Error: Missing required field {e} in product data")
+            print(f"Error: Missing required field {e} in product data")
             error_count += 1
         except Exception as e:
-            print(f"❌ Error creating product: {e}")
+            print(f"Error creating product: {e}")
             error_count += 1
     
     # Summary

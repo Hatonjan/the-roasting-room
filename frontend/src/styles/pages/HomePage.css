@@ -38,26 +38,28 @@
     margin-top: 4rem;
 }
 
-.hero-message h2{
+.hero-message h2 {
     font-family: 'Righteous';
     font-size: 4rem;
 }
 
 .hero-message button {
-    background-color: var(--background);
-    color: var(--primary-color);
+    background-color: var(--highlight-color);
+    color: var(--primary-color);   
     font-weight: bold;
     font-size: 1.75rem;
+    text-shadow: 2px 2px 4px var(--shadow-color);
     padding: .75rem 1.5rem;
     border-radius: 5px;
     border: none;
-    box-shadow: 1px 1px 10px var(--hover-color);
+    box-shadow: 1px 1px 10px var(--highlight-color);
     margin-top: 6rem;
 }
 
 .hero-message button:hover {
     box-shadow: 1px 1px 5px var(--hover-color);
-    padding: .625rem 1.375rem;
+    padding: .7rem 1.45rem;
+    transform: translateY(-2px);
 }
 /* End of hero */
 

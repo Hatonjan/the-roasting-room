@@ -19,5 +19,9 @@ class OrderSerializer(serializers.ModelSerializer):
             'payment_intent', 'checkout_session', 'last_four_digits', 
             'card_brand', 'shipping_method', 'tracking_number', 
             'estimated_delivery', 'created_at', 'updated_at'
-        ]        
-        
+        ]
+    
+    def create(self, validated_data):
+        # Auto-set user from the authenticated request
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)

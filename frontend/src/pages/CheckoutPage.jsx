@@ -119,37 +119,13 @@ export default function CheckoutPage() {
 
       // Payment succeeded - create order
       if (result.paymentIntent.status === 'succeeded') {
+        const shippingAddressStr = `${formData.street}, ${formData.city}, ${formData.state} ${formData.zipCode}, ${formData.country}`;
+        
         const orderData = {
-          customer_name: `${formData.firstName} ${formData.lastName}`,
-          customer_email: formData.email,
-          customer_phone: formData.phone || '',
-          shipping_address: {
-            street: formData.street,
-            city: formData.city,
-            state: formData.state,
-            zip_code: formData.zipCode,
-            country: formData.country,
-          },
-          billing_address: formData.sameAsBilling ? {
-              street: formData.street,
-              city: formData.city,
-              state: formData.state,
-              zip_code: formData.zipCode,
-              country: formData.country,
-          } : {
-              street: billingData.street,
-              city: billingData.city,
-              state: billingData.state,
-              zip_code: billingData.zipCode,
-              country: billingData.country,
-          },
-          items: items.map(item => ({
-            product_id: item.id,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          total_amount: total,
-          stripe_payment_intent_id: result.paymentIntent.id,
+          total: total,
+          shipping_address: shippingAddressStr,
+          payment_intent: result.paymentIntent.id,
+          status: 'paid',
         };
 
         // Send to backend

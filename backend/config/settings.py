@@ -2,6 +2,7 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import dj_database_url
+import stripe
 import os
 
 
@@ -156,3 +157,6 @@ CORS_ALLOW_CREDENTIALS = True
 # Products url
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Stripe key for payments
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')

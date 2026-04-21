@@ -19,7 +19,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/users/login/`, {
+      const response = await fetch(`${API_BASE_URL}/users/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export default function LoginPage() {
         setToken(data.access);
         
         // Fetch user data
-        const userResponse = await fetch(`${API_BASE_URL}/api/users/profile/`, {
+        const userResponse = await fetch(`${API_BASE_URL}/users/profile/`, {
           headers: {
             'Authorization': `Bearer ${data.access}`,
             'Content-Type': 'application/json',

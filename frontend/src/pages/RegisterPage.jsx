@@ -69,10 +69,10 @@ export default function RegisterPage() {
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
-        api_url: `${API_BASE_URL}/api/users/register/`
+        api_url: `${API_BASE_URL}/users/register/`
       });
 
-      const response = await fetch(`${API_BASE_URL}/api/users/register/`, {
+      const response = await fetch(`${API_BASE_URL}/users/register/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

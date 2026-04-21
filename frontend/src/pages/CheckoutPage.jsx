@@ -1,17 +1,13 @@
-/**
- * CheckoutPage.jsx
- * 
- * Checkout page with shipping and billing forms
- * Collects customer info for order processing
- */
-
 import '../styles/pages/CheckoutPage.css';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { API_BASE_URL } from '../config';
 
 export default function CheckoutPage() {
+  const stripe = useStripe();
+  const elements = useElements();
   const { items, total } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -62,64 +58,90 @@ export default function CheckoutPage() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!stripe || !elements) return;
+    
     setLoading(true);
     setError('');
 
-    // Basic validation
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.street) {
-      setError('Please fill in all required fields');
-      setLoading(false);
-      return;
-    }
-
-    if (items.length === 0) {
-      setError('Your cart is empty');
-      setLoading(false);
-      return;
-    }
-
     try {
-      // Prepare order data
-      const orderData = {
-        customer_name: `${formData.firstName} ${formData.lastName}`,
-        customer_email: formData.email,
-        customer_phone: formData.phone || '',
-        shipping_address: {
-          street: formData.street,
-          city: formData.city,
-          state: formData.state,
-          zip_code: formData.zipCode,
-          country: formData.country,
+      // Get payment intent from backend
+      const response = await fetch(`${API_BASE_URL}/orders/payment-intent/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         },
-        billing_address: formData.sameAsBilling ? {
-          street: formData.street,
-          city: formData.city,
-          state: formData.state,
-          zip_code: formData.zipCode,
-          country: formData.country,
-        } : {
-          street: billingData.street,
-          city: billingData.city,
-          state: billingData.state,
-          zip_code: billingData.zipCode,
-          country: billingData.country,
-        },
-        items: items.map(item => ({
-          product_id: item.id,
-          quantity: item.quantity,
-          price: item.price,
-        })),
-        total_amount: total,
-      };
+      });
 
-      // TODO: Send to backend when API is ready
-      console.log('Order data:', orderData);
-      
-      // For now, show success and redirect
-      alert('Order placed successfully! (Demo mode - no payment processed)');
-      navigate('/');
+      const { clientSecret } = await response.json();
+
+      // Confirm payment with Stripe
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            name: `${formData.firstName} ${formData.lastName}`,
+            email: formData.email,
+          }
+        }
+      });
+
+      if (result.error) {
+        setError(result.error.message);
+        setLoading(false);
+        return;
+      }
+
+      // Payment succeeded - create order
+      if (result.paymentIntent.status === 'succeeded') {
+        const orderData = {
+          customer_name: `${formData.firstName} ${formData.lastName}`,
+          customer_email: formData.email,
+          customer_phone: formData.phone || '',
+          shipping_address: {
+            street: formData.street,
+            city: formData.city,
+            state: formData.state,
+            zip_code: formData.zipCode,
+            country: formData.country,
+          },
+          billing_address: formData.sameAsBilling ? {
+              street: formData.street,
+              city: formData.city,
+              state: formData.state,
+              zip_code: formData.zipCode,
+              country: formData.country,
+          } : {
+              street: billingData.street,
+              city: billingData.city,
+              state: billingData.state,
+              zip_code: billingData.zipCode,
+              country: billingData.country,
+          },
+          items: items.map(item => ({
+            product_id: item.id,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          total_amount: total,
+          stripe_payment_intent_id: result.paymentIntent.id,
+        };
+
+        // Send to backend
+        await fetch(`${API_BASE_URL}/orders/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          },
+          body: JSON.stringify(orderData)
+        });
+
+        navigate('/profile'); // Redirect to orders
+      }
     } catch (err) {
-      setError('Error placing order. Please try again.');
+      setError('Payment failed. Please try again.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -377,14 +399,6 @@ export default function CheckoutPage() {
                 )}
               </section>
 
-              {/* Payment Section */}
-              <section className="form-section payment-section">
-                <h2>Payment Information</h2>
-                <div className="payment-notice">
-                  <p>Stripe payment integration coming soon.</p>
-                  <p className="notice-subtitle">For now, clicking "Place Order" will submit your information.</p>
-                </div>
-              </section>
             </div>
 
             {/* Right side - Order Summary */}
@@ -398,7 +412,7 @@ export default function CheckoutPage() {
                   <div key={item.id} className="summary-item">
                     <div className="summary-item-image">
                       <img
-                        src={`${API_BASE_URL}${item.image_url}`}
+                        src={item.image_url}
                         alt={item.name}
                         width={60}
                       />
@@ -433,6 +447,28 @@ export default function CheckoutPage() {
                 <span>Total:</span>
                 <span>${total.toFixed(2)}</span>
               </div>
+
+              <section className="form-section">
+                <h2>Payment Information</h2>
+                <div className="card-element-wrapper">
+                  <CardElement
+                    options={{
+                      style: {
+                        base: {
+                          fontSize: '16px',
+                          color: '#424770',
+                          '::placeholder': {
+                            color: '#aab7c4',
+                          },
+                        },
+                        invalid: {
+                          color: '#9e2146',
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              </section>
 
               <button
                 type="submit"

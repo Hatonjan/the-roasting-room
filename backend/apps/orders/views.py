@@ -1,8 +1,60 @@
+import stripe
+from django.conf import settings
 from rest_framework import generics, permissions, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Order, OrderItem
 from .serializers import OrderSerializer
 from apps.cart.models import Cart, CartItem
+
+# Set the Stripe Secret Key
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+class CreatePaymentIntentView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            # Get the user's cart
+            cart = Cart.objects.get(user=request.user)
+            cart_items = cart.items.all()
+
+            if not cart_items.exists():
+                return Response(
+                    {"error": "Your cart is empty"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Calculate the total in CENTS (Stripe uses integers) $15.00 must be sent as 1500
+            total_amount = sum(item.product.price * item.quantity for item in cart_items)
+            amount_in_cents = int(total_amount * 100)
+
+            # Create the PaymentIntent with Stripe
+            intent = stripe.PaymentIntent.create(
+                amount=amount_in_cents,
+                currency='usd',
+                # add metadata to help identify the payment in the Stripe Dashboard
+                metadata={
+                    'user_id': request.user.id,
+                    'user_email': request.user.email
+                }
+            )
+
+            # Return the client_secret
+            return Response({
+                'clientSecret': intent.client_secret
+            }, status=status.HTTP_200_OK)
+
+        except stripe.error.StripeError as e:
+            return Response(
+                {"error": str(e)}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            return Response(
+                {"error": "An unexpected error occurred."}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 class OrderListCreate(generics.ListCreateAPIView):
     serializer_class = OrderSerializer

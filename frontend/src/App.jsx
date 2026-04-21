@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import AuthContextProvider from './context/AuthContext'
 import CartContextProvider from './context/CartContext'
+import StripeProvider from './context/StripeProvider';
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
@@ -19,30 +20,32 @@ import './styles/components.css'
 
 function App() {
   return (
-    <AuthContextProvider>
-      <CartContextProvider>
-        <Router>
-          <div className="app">
-            <Navbar />
-            <main className="main-content">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/menu" element={<MenuPage />} />
-                <Route path="/products" element={<ProductsPage />} />
-                <Route path="/booking" element={<BookingPage />} />
-                <Route path="/location" element={<LocationPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </Router>
-      </CartContextProvider>
-    </AuthContextProvider>
+    <StripeProvider>
+      <AuthContextProvider>
+        <CartContextProvider>
+          <Router>
+            <div className="app">
+              <Navbar />
+              <main className="main-content">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/menu" element={<MenuPage />} />
+                  <Route path="/products" element={<ProductsPage />} />
+                  <Route path="/booking" element={<BookingPage />} />
+                  <Route path="/location" element={<LocationPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </Router>
+        </CartContextProvider>
+      </AuthContextProvider>
+    </StripeProvider>
   )
 }
 

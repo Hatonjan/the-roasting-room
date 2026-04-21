@@ -48,7 +48,7 @@ export default function ProfilePage() {
   const fetchOrders = async () => {
     setLoadingOrders(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/orders/`, {
+      const response = await fetch(`${API_BASE_URL}/orders/`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export default function ProfilePage() {
 
   const handleSaveProfile = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/users/profile/`, {
+      const response = await fetch(`${API_BASE_URL}/users/profile/`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

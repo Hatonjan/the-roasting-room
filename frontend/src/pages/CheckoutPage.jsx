@@ -8,7 +8,7 @@ import { API_BASE_URL } from '../config';
 export default function CheckoutPage() {
   const stripe = useStripe();
   const elements = useElements();
-  const { items, total } = useContext(CartContext);
+  const { items, total, setItems, setTotal } = useContext(CartContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -139,6 +139,9 @@ export default function CheckoutPage() {
         });
 
         if (orderResponse.ok) {
+          // Clear cart items
+          setItems([]);
+          setTotal(0);
           navigate('/profile'); // Redirect to orders
         } else {
           throw new Error('Failed to create order');

@@ -7,7 +7,7 @@ import { featuredProducts } from '../data/homePageData'
 
 
 export default function HomePage() {
-  return (
+  return ( 
     <main className="home-page">
         <section className="hero">
             <video className='hero-video' autoPlay muted playsInline loop>

@@ -6,6 +6,10 @@ from rest_framework.response import Response
 from .models import Order, OrderItem
 from .serializers import OrderSerializer
 from apps.cart.models import Cart, CartItem
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.http import HttpResponse
+import json
 
 # Set the Stripe Secret Key
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -131,3 +135,48 @@ class OrderDetail(generics.RetrieveUpdateAPIView):
             {"error": "Only status change to 'cancelled' is allowed"},
             status=status.HTTP_400_BAD_REQUEST
         )
+        
+''' Webhook Implementation '''
+@method_decorator(csrf_exempt, name='dispatch')
+class StripeWebhookView(APIView):
+    # Stripe calls this when a payment is successful.
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        payload = request.body
+        sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+        endpoint_secret = settings.STRIPE_WEBHOOK_SECRET 
+        event = None
+
+        try:
+            # Verify the 'ID Card' (Signature) of the request
+            event = stripe.Webhook.construct_event(
+                payload, sig_header, endpoint_secret
+            )
+        except ValueError as e:
+            return HttpResponse(status=400)
+        except stripe.error.SignatureVerificationError as e:
+            return HttpResponse(status=400)
+
+        # Handle the specific event: payment_intent.succeeded
+        if event['type'] == 'payment_intent.succeeded':
+            intent = event['data']['object']
+            payment_intent_id = intent['id']
+            
+            # Extract metadata safely (Stripe objects don't support .get())
+            try:
+                user_id = intent['metadata']['user_id']
+            except (KeyError, TypeError):
+                user_id = None
+            
+            try:
+                order = Order.objects.get(payment_intent=payment_intent_id)
+                order.status = 'paid'
+                order.save()
+                print(f"Order {order.id} marked as PAID.")
+            except Order.DoesNotExist:
+                print(f"Webhook error: No order found for payment intent {payment_intent_id}")
+            
+            print(f"Payment Succeeded for User {user_id}!")
+
+        return HttpResponse(status=200)

@@ -77,13 +77,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=0,
-        ssl_require=True
-    )
-}
+if os.getenv('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.getenv('DATABASE_URL'),
+            conn_max_age=0,
+            ssl_require=True
+        )
+    }
+else:
+    # Use SQLite for local development
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+            'NAME': BASE_DIR / os.getenv('DB_NAME', 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -160,3 +169,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Stripe key for payments
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+
+# stripe Webhook key for payment confirmation
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')

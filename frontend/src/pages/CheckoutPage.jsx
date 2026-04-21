@@ -86,6 +86,12 @@ export default function CheckoutPage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         },
+        body: JSON.stringify({
+          items: items.map(item => ({
+            id: item.id,
+            quantity: item.quantity
+          }))
+        })
       });
 
       if (!response.ok) {

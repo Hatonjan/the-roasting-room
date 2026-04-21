@@ -15,14 +15,26 @@ class CreatePaymentIntentView(APIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            # Get the user's cart
-            try:
-                cart = Cart.objects.get(user=request.user)
-            except Cart.DoesNotExist:
-                return Response(
-                    {"error": "Cart not found. Please add items to your cart first."}, 
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+            # Get or create the user's cart
+            cart, created = Cart.objects.get_or_create(user=request.user)
+            
+            # If cart was just created or is empty, sync items from frontend
+            if created or not cart.items.exists():
+                cart_items_data = request.data.get('items', [])
+                if not cart_items_data:
+                    return Response(
+                        {"error": "Your cart is empty"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                
+                # Clear existing items and add new ones
+                cart.items.all().delete()
+                for item in cart_items_data:
+                    CartItem.objects.create(
+                        cart=cart,
+                        product_id=item.get('id'),
+                        quantity=item.get('quantity', 1)
+                    )
             
             cart_items = cart.items.all()
 

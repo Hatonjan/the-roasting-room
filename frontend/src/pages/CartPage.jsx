@@ -62,7 +62,7 @@ export default function CartPage() {
               <div key={item.id} className="cart-item">
                 <div className="cart-item-image">
                   <img 
-                    src={`${API_BASE_URL}${item.image_url}`} 
+                    src={item.image_url} 
                     alt={item.name}
                     width={100}
                   />

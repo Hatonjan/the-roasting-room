@@ -16,7 +16,14 @@ class CreatePaymentIntentView(APIView):
     def post(self, request, *args, **kwargs):
         try:
             # Get the user's cart
-            cart = Cart.objects.get(user=request.user)
+            try:
+                cart = Cart.objects.get(user=request.user)
+            except Cart.DoesNotExist:
+                return Response(
+                    {"error": "Cart not found. Please add items to your cart first."}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
             cart_items = cart.items.all()
 
             if not cart_items.exists():
@@ -51,8 +58,11 @@ class CreatePaymentIntentView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         except Exception as e:
+            print(f"Unexpected error: {e}")
+            import traceback
+            traceback.print_exc()
             return Response(
-                {"error": "An unexpected error occurred."}, 
+                {"error": f"An unexpected error occurred: {str(e)}"}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 

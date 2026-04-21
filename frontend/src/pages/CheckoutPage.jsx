@@ -58,9 +58,23 @@ export default function CheckoutPage() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted, stripe:', !!stripe, 'elements:', !!elements);
     
-    if (!stripe || !elements) return;
+    // Validate Stripe is loaded
+    if (!stripe || !elements) {
+      setError('Payment system is not ready. Please refresh the page.');
+      console.error('Stripe not loaded');
+      return;
+    }
+
+    // Validate all required fields
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.street || !formData.city || !formData.state || !formData.zipCode || !formData.country) {
+      setError('Please fill in all required fields');
+      console.error('Form validation failed');
+      return;
+    }
     
+    console.log('Starting payment process...');
     setLoading(true);
     setError('');
 
@@ -73,6 +87,10 @@ export default function CheckoutPage() {
           'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         },
       });
+
+      if (!response.ok) {
+        throw new Error(`Backend error: ${response.status}`);
+      }
 
       const { clientSecret } = await response.json();
 
@@ -129,7 +147,7 @@ export default function CheckoutPage() {
         };
 
         // Send to backend
-        await fetch(`${API_BASE_URL}/orders/`, {
+        const orderResponse = await fetch(`${API_BASE_URL}/orders/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -138,11 +156,15 @@ export default function CheckoutPage() {
           body: JSON.stringify(orderData)
         });
 
-        navigate('/profile'); // Redirect to orders
+        if (orderResponse.ok) {
+          navigate('/profile'); // Redirect to orders
+        } else {
+          throw new Error('Failed to create order');
+        }
       }
     } catch (err) {
-      setError('Payment failed. Please try again.');
-      console.error(err);
+      setError(`Payment failed: ${err.message}`);
+      console.error('Payment error:', err);
     } finally {
       setLoading(false);
     }
@@ -456,9 +478,9 @@ export default function CheckoutPage() {
                       style: {
                         base: {
                           fontSize: '16px',
-                          color: '#424770',
+                          color: '#2e1f07',
                           '::placeholder': {
-                            color: '#aab7c4',
+                            color: '#897d54',
                           },
                         },
                         invalid: {

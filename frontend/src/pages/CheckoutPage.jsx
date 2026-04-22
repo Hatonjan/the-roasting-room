@@ -6,7 +6,7 @@ import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 import { API_BASE_URL } from '../config';
 
-export default function CheckoutPage() {
+export default function CheckoutPage() { 
   const stripe = useStripe();
   const elements = useElements();
   const { items, total, setItems, setTotal } = useContext(CartContext);
@@ -48,8 +48,26 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (user && token) {
       fetchAddresses();
+      // Auto-fill user info from profile
+      setFormData(prev => ({
+        ...prev,
+        firstName: user.first_name || '',
+        lastName: user.last_name || '',
+        email: user.email || '',
+      }));
     }
   }, [user, token]);
+
+  // Scroll to error message when error occurs
+  useEffect(() => {
+    if (error) {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [error]);
 
   const fetchAddresses = async () => {
     setLoadingAddresses(true);
@@ -249,6 +267,13 @@ export default function CheckoutPage() {
               {/* Shipping Information */}
               <section className="form-section">
                 <h2>Shipping Information</h2>
+
+                {/* User Info Autofill Notice */}
+                {user && (
+                  <div className="autofill-notice">
+                    <p>ℹ️ Name and email are pre-filled from your profile. Feel free to change them.</p>
+                  </div>
+                )}
 
                 {/* Saved Addresses Selector */}
                 {addresses.length > 0 && (

@@ -76,13 +76,28 @@
 }
 
 .error-message {
-  background-color: #ffebee;
-  color: #c62828;
+  color: rgb(130, 0, 0) !important;
   padding: 1rem;
   border-radius: 8px;
-  border-left: 4px solid #c62828;
+  border-left: 4px solid var(--error-color);
   margin-bottom: 1rem;
   font-weight: 500;
+}
+
+/* Autofill Notice */
+.autofill-notice {
+  background-color: whitesmoke;
+  color: #1565c0;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #1565c0;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.autofill-notice p {
+  margin: 0;
 }
 
 /* Form Sections */
@@ -157,7 +172,8 @@
 
 .address-option {
   background-color: var(--card-color);
-  border: 2px solid var(--hover-color);
+  border: 1px solid var(--shadow-color ) ;
+  box-shadow: 0 0 3px var(--shadow-color);
   border-radius: 8px;
   padding: 1rem;
   cursor: pointer;

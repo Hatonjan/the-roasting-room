@@ -11,6 +11,16 @@ export default function ProfilePage() {
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [loadingAddresses, setLoadingAddresses] = useState(false);
+  const [showAddressForm, setShowAddressForm] = useState(false);
+  const [addressFormData, setAddressFormData] = useState({
+    name: '',
+    street: '',
+    city: '',
+    state: '',
+    zip_code: '',
+    country: '',
+    is_default: false,
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('account');
   const [formData, setFormData] = useState({
@@ -123,6 +133,74 @@ export default function ProfilePage() {
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  const handleAddressFormChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setAddressFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleAddAddress = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/addresses/`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(addressFormData)
+      });
+
+      if (response.ok) {
+        const newAddress = await response.json();
+        setAddresses([...addresses, newAddress]);
+        setAddressFormData({
+          name: '',
+          street: '',
+          city: '',
+          state: '',
+          zip_code: '',
+          country: '',
+          is_default: false,
+        });
+        setShowAddressForm(false);
+        alert('Address added successfully!');
+      } else {
+        alert('Failed to add address');
+      }
+    } catch (error) {
+      console.error('Error adding address:', error);
+      alert('Error adding address');
+    }
+  };
+
+  const handleDeleteAddress = async (addressId) => {
+    if (!window.confirm('Are you sure you want to delete this address?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/addresses/${addressId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (response.ok) {
+        setAddresses(addresses.filter(addr => addr.id !== addressId));
+        alert('Address deleted successfully!');
+      } else {
+        alert('Failed to delete address');
+      }
+    } catch (error) {
+      console.error('Error deleting address:', error);
+      alert('Error deleting address');
+    }
   };
 
   // If not logged in, show login prompt
@@ -354,8 +432,127 @@ export default function ProfilePage() {
             <section className="profile-section">
               <div className="section-header">
                 <h2>Saved Addresses</h2>
-                <button className="add-address-btn">+ Add Address</button>
+                <button 
+                  className="add-address-btn"
+                  onClick={() => setShowAddressForm(!showAddressForm)}
+                >
+                  {showAddressForm ? '✕ Cancel' : '+ Add Address'}
+                </button>
               </div>
+
+              {/* Add Address Form */}
+              {showAddressForm && (
+                <div className="address-form-card">
+                  <h3>Add New Address</h3>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="name">Address Name *</label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="e.g., Home, Work"
+                        value={addressFormData.name}
+                        onChange={handleAddressFormChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="street">Street Address *</label>
+                    <input
+                      type="text"
+                      id="street"
+                      name="street"
+                      placeholder="123 Main Street"
+                      value={addressFormData.street}
+                      onChange={handleAddressFormChange}
+                    />
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="city">City *</label>
+                      <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        placeholder="New York"
+                        value={addressFormData.city}
+                        onChange={handleAddressFormChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="state">State/Province *</label>
+                      <input
+                        type="text"
+                        id="state"
+                        name="state"
+                        placeholder="NY"
+                        value={addressFormData.state}
+                        onChange={handleAddressFormChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="zip_code">ZIP/Postal Code *</label>
+                      <input
+                        type="text"
+                        id="zip_code"
+                        name="zip_code"
+                        placeholder="10001"
+                        value={addressFormData.zip_code}
+                        onChange={handleAddressFormChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="country">Country *</label>
+                      <input
+                        type="text"
+                        id="country"
+                        name="country"
+                        placeholder="United States"
+                        value={addressFormData.country}
+                        onChange={handleAddressFormChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group checkbox">
+                    <label htmlFor="is_default">
+                      <input
+                        type="checkbox"
+                        id="is_default"
+                        name="is_default"
+                        checked={addressFormData.is_default}
+                        onChange={handleAddressFormChange}
+                      />
+                      Set as default address
+                    </label>
+                  </div>
+
+                  <div className="form-actions">
+                    <button
+                      type="button"
+                      className="save-btn"
+                      onClick={handleAddAddress}
+                    >
+                      Save Address
+                    </button>
+                    <button
+                      type="button"
+                      className="cancel-btn"
+                      onClick={() => setShowAddressForm(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Addresses List */}
               {loadingAddresses ? (
                 <p>Loading addresses...</p>
               ) : addresses.length > 0 ? (
@@ -371,7 +568,12 @@ export default function ProfilePage() {
                       <p className="address-text">{address.country}</p>
                       <div className="address-actions">
                         <button className="edit-address-btn">Edit</button>
-                        <button className="delete-address-btn">Delete</button>
+                        <button 
+                          className="delete-address-btn"
+                          onClick={() => handleDeleteAddress(address.id)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   ))}

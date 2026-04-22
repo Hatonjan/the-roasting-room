@@ -1,15 +1,22 @@
 import '../styles/pages/CheckoutPage.css';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { AuthContext } from '../context/AuthContext';
 import { API_BASE_URL } from '../config';
 
 export default function CheckoutPage() {
   const stripe = useStripe();
   const elements = useElements();
   const { items, total, setItems, setTotal } = useContext(CartContext);
+  const { user, token } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Saved addresses
+  const [addresses, setAddresses] = useState([]);
+  const [loadingAddresses, setLoadingAddresses] = useState(false);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -37,9 +44,64 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Handle input changes for shipping form
+  // Fetch saved addresses on component load
+  useEffect(() => {
+    if (user && token) {
+      fetchAddresses();
+    }
+  }, [user, token]);
+
+  const fetchAddresses = async () => {
+    setLoadingAddresses(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/addresses/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (response.ok) {
+        const addressesData = await response.json();
+        setAddresses(addressesData);
+      }
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+    } finally {
+      setLoadingAddresses(false);
+    }
+  };
+
+  // Handle selecting a saved address
+  const handleSelectAddress = (addressId) => {
+    const address = addresses.find(addr => addr.id === addressId);
+    if (address) {
+      setSelectedAddressId(addressId);
+      setFormData(prev => ({
+        ...prev,
+        firstName: prev.firstName || '',
+        lastName: prev.lastName || '',
+        email: prev.email || '',
+        phone: prev.phone || '',
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        zipCode: address.zip_code,
+        country: address.country,
+      }));
+    }
+  };
+
+  // Clear address selection when user manually edits address fields
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+    
+    // Clear address selection if user manually edits address fields
+    const addressFields = ['street', 'city', 'state', 'zipCode', 'country'];
+    if (addressFields.includes(name)) {
+      setSelectedAddressId(null);
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -187,6 +249,32 @@ export default function CheckoutPage() {
               {/* Shipping Information */}
               <section className="form-section">
                 <h2>Shipping Information</h2>
+
+                {/* Saved Addresses Selector */}
+                {addresses.length > 0 && (
+                  <div className="saved-addresses-selector">
+                    <label className="selector-label">Use saved address:</label>
+                    <div className="addresses-options">
+                      {addresses.map(address => (
+                        <button
+                          key={address.id}
+                          type="button"
+                          className={`address-option ${selectedAddressId === address.id ? 'selected' : ''}`}
+                          onClick={() => handleSelectAddress(address.id)}
+                        >
+                          <div className="address-option-content">
+                            <strong>{address.name}</strong>
+                            <p>{address.street}</p>
+                            <p>{address.city}, {address.state} {address.zip_code}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <p className="form-hint">Or enter a different address below</p>
+
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="firstName">First Name *</label>

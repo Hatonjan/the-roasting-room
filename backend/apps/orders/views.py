@@ -1,11 +1,14 @@
 import stripe
 from django.conf import settings
+from django.db import transaction
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import serializers
 from .models import Order, OrderItem
 from .serializers import OrderSerializer
 from apps.cart.models import Cart, CartItem
+from apps.products.models import Product
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
@@ -96,20 +99,37 @@ class OrderListCreate(generics.ListCreateAPIView):
         if not cart_items.exists():
             raise serializers.ValidationError("Cart is empty")
         
+        # Validate stock availability before creating order
+        for cart_item in cart_items:
+            if cart_item.product.stock_quantity < cart_item.quantity:
+                raise serializers.ValidationError(
+                    f"Insufficient stock for {cart_item.product.name}. "
+                    f"Available: {cart_item.product.stock_quantity}, "
+                    f"Requested: {cart_item.quantity}"
+                )
+        
         total = sum(item.product.price * item.quantity for item in cart_items)
         
-        order = serializer.save(user=self.request.user, total=total)
-        
-        for cart_item in cart_items:
-            OrderItem.objects.create(
-                order=order,
-                product=cart_item.product,
-                quantity=cart_item.quantity,
-                price_at_purchase=cart_item.product.price,
-                subtotal=cart_item.product.price * cart_item.quantity
-            )
-        
-        cart_items.delete()
+        # Use transaction to ensure atomicity (all or nothing)
+        with transaction.atomic():
+            order = serializer.save(user=self.request.user, total=total)
+            
+            for cart_item in cart_items:
+                OrderItem.objects.create(
+                    order=order,
+                    product=cart_item.product,
+                    quantity=cart_item.quantity,
+                    price_at_purchase=cart_item.product.price,
+                    subtotal=cart_item.product.price * cart_item.quantity
+                )
+                
+                # Decrease product stock
+                product = cart_item.product
+                product.stock_quantity -= cart_item.quantity
+                product.save()
+            
+            # Clear cart items only after successful order creation
+            cart_items.delete()
 
 class OrderDetail(generics.RetrieveUpdateAPIView):
     serializer_class = OrderSerializer

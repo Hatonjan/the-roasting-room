@@ -132,6 +132,75 @@
   cursor: pointer;
 }
 
+/* Saved Addresses Selector */
+.saved-addresses-selector {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  border: 2px solid var(--highlight-color);
+}
+
+.selector-label {
+  display: block;
+  color: var(--navbar-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.addresses-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.address-option {
+  background-color: var(--card-color);
+  border: 2px solid var(--hover-color);
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: left;
+}
+
+.address-option:hover {
+  border-color: var(--highlight-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.address-option.selected {
+  background-color: var(--primary-color);
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 0 3px rgba(243, 143, 15, 0.15);
+}
+
+.address-option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.address-option-content strong {
+  color: var(--navbar-color);
+  font-family: 'Archivo Black';
+  font-size: 0.95rem;
+}
+
+.address-option-content p {
+  color: grey;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.form-hint {
+  color: grey;
+  font-size: 0.9rem;
+  margin: -1.5rem 0 1.5rem 0;
+  font-style: italic;
+}
+
 /* Form Grid */
 .form-row {
   display: grid;
@@ -343,6 +412,7 @@
   width: 100%;
   background-color: var(--highlight-color);
   color: var(--navbar-color);
+  margin-top: 1rem;
   padding: 1rem;
   border: none;
   border-radius: 10px;
@@ -351,13 +421,12 @@
   cursor: pointer;
   transition: all 0.3s;
   margin-bottom: 1rem;
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .place-order-btn:hover:not(:disabled) {
-  background-color: var(--background);
-  color: var(--primary-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: none;  
 }
 
 .place-order-btn:disabled {

@@ -1,5 +1,5 @@
 import '../styles/pages/BookingPage.css'
-import coffeeTesting from '../assets/img/coffee-testing.png'
+import coffeeTasting from '../assets/img/coffee-tasting.png'
 import { useState } from 'react'
 
 export default function BookingPage() {
@@ -56,7 +56,7 @@ export default function BookingPage() {
         <h2>Go Beyond the Brew: A Journey from Bean to Cup</h2>
 
         <div className='booking-message'>
-          <img src={coffeeTesting} width="600" alt="Two people preparing a table for a coffee testing experience"/>
+          <img src={coffeeTasting} width="600" alt="Two people preparing a table for a coffee tasting experience"/>
           
           <div className='booking-about'>
             <p>

@@ -7,7 +7,7 @@ export const navLinks = [
   { id: 'Home'              , path: '/'         },
   { id: 'Menu'              , path: '/menu'     },
   { id: 'Our Beans'         , path: '/products' },
-  { id: 'Testing Experience', path: '/booking'  },
+  { id: 'Tasting Experience', path: '/booking'  },
   { id: 'Location & Hours'  , path: '/location' },
 ]
 

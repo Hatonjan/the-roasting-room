@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Address
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,6 +9,15 @@ class UserSerializer(serializers.ModelSerializer):
             'phone', 'address', 'email_verified', 'date_joined'        
         ]
         read_only_fields = ['id', 'email_verified', 'date_joined']
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = [
+            'id', 'name', 'street', 'city', 'state', 
+            'zip_code', 'country', 'is_default', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
         
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)

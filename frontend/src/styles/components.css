@@ -95,9 +95,8 @@
 }
 
 .nav-link:hover {
-    background-color: var(--background);
-    color: var(--primary-color);
-    box-shadow: 0 0 3px var(--primary-color);
+    background-color: var(--highlight-color);
+    color: var(--navbar-color);
 }
 
 /* Shopping Bag Cart Icon */

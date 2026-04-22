@@ -1,7 +1,7 @@
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
-from .models import User
-from .serializers import UserSerializer, UserRegistrationSerializer
+from .models import User, Address
+from .serializers import UserSerializer, UserRegistrationSerializer, AddressSerializer
 
 class UserRegister(generics.CreateAPIView):
     queryset           = User.objects.all()
@@ -34,3 +34,16 @@ class ChangePassword(generics.UpdateAPIView):
         user.save()
         
         return Response({"message": "Password updated successfully"})
+
+
+class AddressViewSet(viewsets.ModelViewSet):
+    serializer_class = AddressSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        # Only return addresses for the authenticated user
+        return Address.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        # Auto-set user to authenticated user
+        serializer.save(user=self.request.user)

@@ -9,6 +9,8 @@ export default function ProfilePage() {
   const { user, token, logout, updateUser, loading } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
+  const [addresses, setAddresses] = useState([]);
+  const [loadingAddresses, setLoadingAddresses] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('account');
   const [formData, setFormData] = useState({
@@ -30,6 +32,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (token) {
       fetchOrders();
+      fetchAddresses();
     }
   }, [token]);
 
@@ -65,6 +68,31 @@ export default function ProfilePage() {
       console.error('Error fetching orders:', error);
     } finally {
       setLoadingOrders(false);
+    }
+  };
+
+  const fetchAddresses = async () => {
+    setLoadingAddresses(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/addresses/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (response.ok) {
+        const addressesData = await response.json();
+        setAddresses(addressesData);
+      } else {
+        // If no addresses endpoint, set empty
+        setAddresses([]);
+      }
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+      setAddresses([]);
+    } finally {
+      setLoadingAddresses(false);
     }
   };
 
@@ -296,12 +324,17 @@ export default function ProfilePage() {
                           <span className={`order-status ${order.status?.toLowerCase()}`}>
                             {order.status || 'Pending'}
                           </span>
-                          <p className="order-total">${order.total_amount}</p>
+                          <p className="order-total">${parseFloat(order.total).toFixed(2)}</p>
                         </div>
                       </div>
                       <div className="order-footer">
-                        <p className="order-items">{order.items?.length || 0} items</p>
-                        <button className="view-details-btn">View Details</button>
+                        <p className="order-items">{order.items?.reduce((sum, item) => sum + item.quantity, 0) || 0} items</p>
+                        <button 
+                          className="view-details-btn"
+                          onClick={() => navigate(`/order/${order.id}`)}
+                        >
+                          View Details
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -323,34 +356,32 @@ export default function ProfilePage() {
                 <h2>Saved Addresses</h2>
                 <button className="add-address-btn">+ Add Address</button>
               </div>
-              <div className="addresses-list">
-                <div className="address-card">
-                  <div className="address-header">
-                    <h3>Home</h3>
-                    <span className="default-badge">Default</span>
-                  </div>
-                  <p className="address-text">123 Main Street</p>
-                  <p className="address-text">New York, NY 10001</p>
-                  <p className="address-text">United States</p>
-                  <div className="address-actions">
-                    <button className="edit-address-btn">Edit</button>
-                    <button className="delete-address-btn">Delete</button>
-                  </div>
+              {loadingAddresses ? (
+                <p>Loading addresses...</p>
+              ) : addresses.length > 0 ? (
+                <div className="addresses-list">
+                  {addresses.map(address => (
+                    <div key={address.id} className="address-card">
+                      <div className="address-header">
+                        <h3>{address.name || address.label || 'Saved Address'}</h3>
+                        {address.is_default && <span className="default-badge">Default</span>}
+                      </div>
+                      <p className="address-text">{address.street}</p>
+                      <p className="address-text">{address.city}, {address.state} {address.zip_code}</p>
+                      <p className="address-text">{address.country}</p>
+                      <div className="address-actions">
+                        <button className="edit-address-btn">Edit</button>
+                        <button className="delete-address-btn">Delete</button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-
-                <div className="address-card">
-                  <div className="address-header">
-                    <h3>Work</h3>
-                  </div>
-                  <p className="address-text">456 Office Boulevard</p>
-                  <p className="address-text">San Francisco, CA 94105</p>
-                  <p className="address-text">United States</p>
-                  <div className="address-actions">
-                    <button className="edit-address-btn">Edit</button>
-                    <button className="delete-address-btn">Delete</button>
-                  </div>
+              ) : (
+                <div className="no-addresses">
+                  <p>No saved addresses yet.</p>
+                  <p className="no-addresses-subtitle">Add an address to speed up checkout</p>
                 </div>
-              </div>
+              )}
             </section>
           </div>
         )}

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 export default function SEO({ 
   title = 'Roasting Room - Premium Coffee',
   description = 'Discover premium specialty coffee. Fresh roasted beans, brewing equipment, and coffee tasting experiences.',
-  image = 'https://roasting-room.netlify.app/assets/og-img.png',
+  image = 'https://roasting-room.netlify.app/og-img.png',
   url = 'https://roasting-room.netlify.app',
   type = 'website',
   twitterHandle = '@roastingroomco' // Add your Twitter handle

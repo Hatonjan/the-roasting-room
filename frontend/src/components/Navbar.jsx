@@ -5,14 +5,21 @@ import shoppingBag from '../assets/svg/shopping-bag.svg'
 import { navLinks } from '../data/navigation'
 import { CartContext } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
+import { CacheContext } from '../context/CacheContext'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items } = useContext(CartContext);
   const { user } = useContext(AuthContext);
+  const { prefetchProducts } = useContext(CacheContext);
   
   // Calculate total quantity across all items
   const cartCount = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
+  // Prefetch products when hovering over "Our Beans" link
+  const handleProductsHover = () => {
+    prefetchProducts().catch(err => console.error('Prefetch failed:', err))
+  }
 
   return (
     <header className="header">
@@ -39,7 +46,13 @@ export default function Navbar() {
             <ul className="navbar-links">
             {navLinks.map((link) => (
                 <li key={link.path}>
-                    <Link to={link.path} onClick={() => setIsMenuOpen(false)}>{link.id}</Link>
+                    <Link 
+                      to={link.path} 
+                      onClick={() => setIsMenuOpen(false)}
+                      onMouseEnter={() => link.path === '/products' && handleProductsHover()}
+                    >
+                      {link.id}
+                    </Link>
                 </li>
             ))}      
             </ul>

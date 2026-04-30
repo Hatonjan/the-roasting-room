@@ -1,6 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { HelmetProvider } from 'react-helmet-async'
+import ReactGA from 'react-ga4'
 import AuthContextProvider from './context/AuthContext'
 import CartContextProvider from './context/CartContext'
+import CacheContextProvider from './context/CacheContext'
 import StripeProvider from './context/StripeProvider';
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -19,14 +23,31 @@ import './App.css'
 import './index.css'
 import './styles/components.css'
 
+// Initialize Google Analytics
+ReactGA.initialize('G-0ZGVDM014B')
+
+// Component to track page views
+function PageTracker() {
+  const location = useLocation()
+  
+  useEffect(() => {
+    ReactGA.send({ hitType: 'pageview', page: location.pathname, title: document.title })
+  }, [location])
+
+  return null
+}
+
 function App() {
   return (
-    <StripeProvider>
-      <AuthContextProvider>
-        <CartContextProvider>
-          <Router>
-            <div className="app">
-              <Navbar />
+    <HelmetProvider>
+      <StripeProvider>
+        <AuthContextProvider>
+          <CartContextProvider>
+            <CacheContextProvider>
+              <Router>
+                <PageTracker />
+              <div className="app">
+                <Navbar />
               <main className="main-content">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
@@ -45,9 +66,11 @@ function App() {
               <Footer />
             </div>
           </Router>
+            </CacheContextProvider>
         </CartContextProvider>
       </AuthContextProvider>
     </StripeProvider>
+    </HelmetProvider>
   )
 }
 

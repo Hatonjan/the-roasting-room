@@ -1,19 +1,30 @@
 import '../styles/pages/ProductsPage.css'
 import ProductCard from "../components/ProductCard";
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getProducts } from '../services/api';
+import { CacheContext } from '../context/CacheContext';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { cache, prefetchProducts } = useContext(CacheContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const data = await getProducts();
+        
+        // Check if data is already cached
+        if (cache.products) {
+          setProducts(cache.products);
+          setLoading(false);
+          return;
+        }
+
+        // Fetch fresh data
+        const data = await prefetchProducts();
         setProducts(data);
       } catch (err) {
         setError(err.message);
